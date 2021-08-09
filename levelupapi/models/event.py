@@ -6,5 +6,15 @@ class Event(models.Model):
     description = models.TextField()
     game = models.ForeignKey("Game", on_delete=models.CASCADE)
     date = models.DateField()
-    time = TimeField()
+    time = models.TimeField()
+    attendees = models.ManyToManyField("Gamer", through="GamerEvent", related_name="attending")
+
+    @property
+    def joined(self):
+        return self.__joined
+
+    @joined.setter
+    def joined(self, value):
+        self.__joined = value
+
 
